@@ -10,14 +10,14 @@ function ParticleField() {
 
   const particles = useMemo(() => {
 
-    const count = 500;
+    const count = 300; // reduced for performance
     const positions = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
 
-      positions[i * 3] = (Math.random() - 0.5) * 25;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 12;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 25;
+      positions[i * 3] = (Math.random() - 0.5) * 20;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
 
     }
 
@@ -29,8 +29,8 @@ function ParticleField() {
 
     if (ref.current) {
 
-      ref.current.rotation.y += 0.0008;
-      ref.current.rotation.x += 0.0004;
+      ref.current.rotation.y += 0.0006;
+      ref.current.rotation.x += 0.0003;
 
     }
 
