@@ -1,195 +1,118 @@
 "use client";
 
 import Residential3D from "./Residential3D";
-import { useRef } from "react";
 import { motion } from "framer-motion";
 
 export default function Residential() {
 
-  const imgRef = useRef(null);
-
-  const handleMove = (e) => {
-
-    if (window.innerWidth < 768) return;
-
-    const rect = imgRef.current.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const rotateX = ((y / rect.height) - 0.5) * -6;
-    const rotateY = ((x / rect.width) - 0.5) * 6;
-
-    imgRef.current.style.transform =
-      `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-
-  };
-
-  const resetTilt = () => {
-    if (imgRef.current)
-      imgRef.current.style.transform = "rotateX(0deg) rotateY(0deg)";
-  };
-
-  const features = [
-    {
-      icon: "⚡",
-      title: "Lower Electricity Bills",
-      desc: "Reduce energy costs with solar power."
-    },
-    {
-      icon: "🌱",
-      title: "Clean Renewable Energy",
-      desc: "Environment friendly solar systems."
-    },
-    {
-      icon: "🏠",
-      title: "Increase Home Value",
-      desc: "Solar adds long-term property value."
-    },
-    {
-      icon: "💰",
-      title: "Long-Term Savings",
-      desc: "Reliable energy investment for decades."
-    }
-  ];
-
   return (
-    <section className="relative py-16 md:py-24 px-4 sm:px-8 md:px-20 bg-gradient-to-b from-white to-gray-100 overflow-hidden">
+    <section className="relative h-[85vh] w-full overflow-hidden flex items-center">
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+      {/* BACKGROUND */}
+      <div className="absolute inset-0">
 
-        {/* IMAGE SIDE */}
-        <div className="relative perspective-[1000px]">
+        <img
+          src="/home/4.jpg"
+          alt="Residential Solar"
+          className="w-full h-full object-cover block"
+        />
 
-          <div
-            ref={imgRef}
-            onMouseMove={handleMove}
-            onMouseLeave={resetTilt}
-            className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition-transform duration-300"
-          >
+        {/* DARK OVERLAY */}
+        <div className="absolute inset-0 bg-black/50"></div>
 
-            <img
-              src="/home/4.jpg"
-              alt="Residential Solar"
-              className="w-full h-[300px] sm:h-[400px] md:h-full object-cover"
-            />
+        {/* TOP BLEND (Hero se smooth connect) */}
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent"></div>
 
-            {/* gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-green-600/10 via-transparent to-green-300/10"></div>
+        {/* BOTTOM BLEND (Next section smooth) */}
+        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent"></div>
 
-            {/* three.js particles */}
-            <div className="absolute inset-0 pointer-events-none">
-              <Residential3D />
+        {/* 3D PARTICLES */}
+        <div className="absolute inset-0 pointer-events-none">
+          <Residential3D />
+        </div>
+
+      </div>
+
+
+      {/* LEFT CONTENT CARD */}
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{
+          duration: 1.6,
+          ease: [0.22, 1, 0.36, 1]
+        }}
+        viewport={{ once: true }}
+        className="relative z-10 max-w-lg ml-8 md:ml-24"
+      >
+
+        <div
+          className="
+          backdrop-blur-xl
+          bg-white/10
+          border border-white/20
+          rounded-2xl
+          p-8 md:p-10
+          shadow-[0_30px_80px_rgba(0,0,0,0.45)]
+          transition-all duration-700 ease-out
+          hover:scale-[1.02]
+          "
+        >
+
+          <p className="text-green-400 uppercase tracking-widest text-xs font-semibold">
+            Residential Solar
+          </p>
+
+          <h2 className="mt-3 text-3xl md:text-4xl font-bold text-white leading-tight">
+            Smart Solar <br />
+            For Modern Homes
+          </h2>
+
+          <p className="mt-4 text-gray-200 text-sm leading-relaxed">
+            Generate clean energy, reduce electricity bills,
+            and power your home with reliable solar technology.
+          </p>
+
+
+          {/* STATS */}
+          <div className="flex gap-10 mt-6">
+
+            <div>
+              <p className="text-2xl font-bold text-green-400">80%</p>
+              <p className="text-gray-300 text-xs">Bill Savings</p>
+            </div>
+
+            <div>
+              <p className="text-2xl font-bold text-green-400">25+</p>
+              <p className="text-gray-300 text-xs">Years Life</p>
             </div>
 
           </div>
 
-          {/* floating badge */}
-          <div className="absolute -bottom-5 left-4 md:-bottom-6 md:-left-6 bg-white shadow-lg px-4 md:px-6 py-3 md:py-4 rounded-xl">
 
-            <p className="text-xs md:text-sm text-gray-500">
-              Savings
-            </p>
-
-            <p className="text-lg md:text-2xl font-bold text-green-600">
-              Up to 80%
-            </p>
-
-          </div>
-
-        </div>
-
-        {/* CONTENT SIDE */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center md:text-left"
-        >
-
-          <p className="text-green-500 font-semibold tracking-widest uppercase text-sm">
-            Residential Solar
-          </p>
-
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            Smart Solar Energy
-            <br />
-            For Modern Homes
-          </h2>
-
-          <p className="mt-4 md:mt-6 text-gray-600 text-base md:text-lg leading-relaxed">
-            Install advanced rooftop solar systems designed for modern
-            households. Generate clean electricity, reduce your monthly
-            power bills, and build a sustainable future with reliable
-            solar technology.
-          </p>
-
-          {/* FEATURES */}
-          <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-
-            {features.map((f, index) => (
-
-              <div
-                key={index}
-                className="
-                flex gap-3 md:gap-4 items-start
-                bg-white
-                p-4
-                rounded-xl
-                shadow
-                transform
-                transition
-                duration-300
-                hover:scale-105
-                hover:-translate-y-1
-                hover:shadow-xl
-                cursor-pointer
-                "
-              >
-
-                <span className="text-green-500 text-xl md:text-2xl">
-                  {f.icon}
-                </span>
-
-                <div>
-                  <p className="font-semibold text-gray-800 text-sm md:text-base">
-                    {f.title}
-                  </p>
-
-                  <p className="text-xs md:text-sm text-gray-500">
-                    {f.desc}
-                  </p>
-                </div>
-
-              </div>
-
-            ))}
-
-          </div>
-
-          {/* CTA */}
+          {/* BUTTON */}
           <button
             className="
-            mt-8 md:mt-10
+            mt-6
             bg-green-500
             hover:bg-green-600
             text-white
-            px-6 md:px-8
-            py-3
-            rounded-xl
+            px-6
+            py-2.5
+            rounded-lg
+            text-sm
             font-semibold
             shadow-lg
-            transition
+            transition-all duration-500
             hover:scale-105
             "
           >
-            Get Free Solar Consultation
+            Get Solar Quote
           </button>
 
-        </motion.div>
+        </div>
 
-      </div>
+      </motion.div>
 
     </section>
   );

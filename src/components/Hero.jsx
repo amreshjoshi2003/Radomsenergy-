@@ -17,10 +17,10 @@ export default function Hero() {
   const progressRef = useRef(null);
   const cardRef = useRef(null);
 
-  // cinematic slider
-  useEffect(() => {
+  const duration = 7000;
 
-    const duration = 6000;
+  // VIDEO SLIDER
+  useEffect(() => {
 
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % videos.length);
@@ -34,7 +34,7 @@ export default function Hero() {
       setTimeout(() => {
         progressRef.current.style.transition = `width ${duration}ms linear`;
         progressRef.current.style.width = "100%";
-      }, 50);
+      }, 60);
 
     }
 
@@ -42,7 +42,7 @@ export default function Hero() {
 
   }, [current]);
 
-  // mouse tilt
+  // MOUSE TILT
   const handleMove = (e) => {
 
     if (!cardRef.current) return;
@@ -52,8 +52,8 @@ export default function Hero() {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const rotateX = ((y / rect.height) - 0.5) * -10;
-    const rotateY = ((x / rect.width) - 0.5) * 10;
+    const rotateX = ((y / rect.height) - 0.5) * -6;
+    const rotateY = ((x / rect.width) - 0.5) * 6;
 
     cardRef.current.style.transform =
       `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
@@ -77,7 +77,7 @@ export default function Hero() {
           loop
           playsInline
           preload="metadata"
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ${
             index === current ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -88,7 +88,10 @@ export default function Hero() {
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-      {/* THREE JS PARTICLES */}
+      {/* HERO BOTTOM GRADIENT (SECTION BLEND FIX) */}
+      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-black"></div>
+
+      {/* THREE JS */}
       <Hero3D />
 
       {/* PROGRESS BAR */}
@@ -107,9 +110,9 @@ export default function Hero() {
           ref={cardRef}
           onMouseMove={handleMove}
           onMouseLeave={resetTilt}
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 80 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
           className="
             relative z-10
             w-[90%]
@@ -125,6 +128,7 @@ export default function Hero() {
             bg-white/90
             backdrop-blur-lg
             shadow-2xl
+            transition-transform duration-500
           "
         >
 
